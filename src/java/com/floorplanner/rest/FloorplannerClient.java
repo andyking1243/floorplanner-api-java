@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
+import com.floorplanner.rest.beans.Design;
+import com.floorplanner.rest.beans.Floor;
 import com.floorplanner.rest.beans.Project;
 import com.floorplanner.rest.beans.User;
 import com.sun.jersey.api.client.Client;
@@ -128,5 +130,34 @@ public class FloorplannerClient {
 			.accept(MediaType.APPLICATION_XML_TYPE)
 			.get(new GenericType<String>() {});
     }
+  
+    public void removeFloor(int floorId)
+    {
+    	userResource.path("floors").path(floorId + ".xml")
+			.header(AUTHENTICATION_HEADER, authentication)
+			.accept(MediaType.APPLICATION_XML_TYPE)
+			.delete();
+    }
     
+    public Floor updateFloor(Floor floor) {
+    	return userResource.path("floors").path(floor.getId() + ".xml")
+    		.header(AUTHENTICATION_HEADER, authentication)
+    		.accept(MediaType.APPLICATION_XML_TYPE)
+    		.put(Floor.class, floor);
+    }
+    
+    public void removeDesign(int designId)
+    {
+    	userResource.path("designs").path(designId + ".xml")
+			.header(AUTHENTICATION_HEADER, authentication)
+			.accept(MediaType.APPLICATION_XML_TYPE)
+			.delete();
+    }
+    
+    public Design updateDesign(Design design) {
+    	return userResource.path("designs").path(design.getId() + ".xml")
+    		.header(AUTHENTICATION_HEADER, authentication)
+    		.accept(MediaType.APPLICATION_XML_TYPE)
+    		.put(Design.class, design);
+    }
 }
