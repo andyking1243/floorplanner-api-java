@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Floor {
 
 	private String name, height, level, id;
-	private List<Design> design;
+	private Designs designs;
 	
 	public String getId() {
 		return id;
@@ -44,11 +44,11 @@ public class Floor {
 		this.level = level;
 	}
 
-    public List<Design> getDesign() {
-        return design;
+    public Designs getDesigns() {
+        return designs;
     }
     
-    public void setDesign(List<Design> design) {
-        this.design = design;
+    public void setDesigns(Designs designs) {
+        this.designs = designs;
     }
 }

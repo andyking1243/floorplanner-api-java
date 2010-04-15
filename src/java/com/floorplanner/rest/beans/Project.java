@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Project {
 
 	private String name, description, externalIentifier, id;
-	public Floors floors;
+	private Floors floors;
 	
 	public Project()
 	{

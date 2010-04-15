@@ -6,23 +6,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Floors {
+public class Designs {
 
-	private List<Floor> floor;
+	private List<Design> design;
 	@XmlAttribute public static final String type = "array";
 	
-	public Floors()
+	public Designs()
 	{
-		floor = new ArrayList<Floor>();
+		design = new ArrayList<Design>();
 	}
 	
-	public void setFloor(List<Floor> floor)
+	public void setDesign(List<Design> design)
 	{
-		this.floor = floor;
+		this.design = design;
 	}
 	
-	public List<Floor> getFloor()
+	public List<Design> getDesign()
 	{
-		return floor;
+		return design;
 	}
 }

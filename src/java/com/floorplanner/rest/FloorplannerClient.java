@@ -18,8 +18,7 @@ public class FloorplannerClient {
 	private final String authentication;
 	private static final String AUTHENTICATION_HEADER = "Authorization";
     private final WebResource userResource;
-    private String token;
-    
+
 	public FloorplannerClient(String apikey, String host)
 	{
 		authentication = "Basic " + Base64.encodeBase64URLSafeString((apikey + ":x").getBytes());
@@ -46,8 +45,8 @@ public class FloorplannerClient {
     		.get(new GenericType<List<User>>() {});
     }
     
-    public User getUserById(int id) {
-    	return userResource.path("users").path(id + ".xml")
+    public User getUserById(int userId) {
+    	return userResource.path("users").path(userId + ".xml")
     		.header(AUTHENTICATION_HEADER, authentication)
     		.accept(MediaType.APPLICATION_XML_TYPE)
     		.get(new GenericType<User>() {});
@@ -59,7 +58,22 @@ public class FloorplannerClient {
     		.accept(MediaType.APPLICATION_XML_TYPE)
     		.post(User.class, user);
     }
+    
+    public User updateUser(User user) {
+    	return userResource.path("users").path(user.getId() + ".xml")
+    		.header(AUTHENTICATION_HEADER, authentication)
+    		.accept(MediaType.APPLICATION_XML_TYPE)
+    		.put(User.class, user);
+    }
    
+    public void removeUser(int userId)
+    {
+    	 userResource.path("users").path(userId + ".xml")
+			.header(AUTHENTICATION_HEADER, authentication)
+			.accept(MediaType.APPLICATION_XML_TYPE)
+			.delete();
+    } 
+    
     public Project createProject(int userId, Project project) {
     	return userResource.path("users").path(Integer.toString(userId)).path("projects.xml")
     		.header(AUTHENTICATION_HEADER, authentication)
@@ -76,8 +90,8 @@ public class FloorplannerClient {
     		.get(new GenericType<List<Project>>() {});
     } 
     
-    public Project getProjectById(int id) {
-    	return userResource.path("projects").path(id + ".xml")
+    public Project getProjectById(int projectId) {
+    	return userResource.path("projects").path(projectId + ".xml")
     		.header(AUTHENTICATION_HEADER, authentication)
     		.accept(MediaType.APPLICATION_XML_TYPE)
     		.get(new GenericType<Project>() {});
@@ -91,5 +105,28 @@ public class FloorplannerClient {
     		.accept(MediaType.APPLICATION_XML_TYPE)
     		.get(new GenericType<List<Project>>() {});
     } 
+    
+    public Project updateProject(Project project) {
+    	return userResource.path("projects").path(project.getId() + ".xml")
+    		.header(AUTHENTICATION_HEADER, authentication)
+    		.accept(MediaType.APPLICATION_XML_TYPE)
+    		.put(Project.class, project);
+    }
+   
+    public void removeProject(int projectId)
+    {
+    	 userResource.path("projects").path(projectId + ".xml")
+			.header(AUTHENTICATION_HEADER, authentication)
+			.accept(MediaType.APPLICATION_XML_TYPE)
+			.delete();
+    } 
+    
+    public String exportProject(int projectId)
+    {
+    	return userResource.path("projects").path(Integer.toString(projectId)).path("export.xml")
+			.header(AUTHENTICATION_HEADER, authentication)
+			.accept(MediaType.APPLICATION_XML_TYPE)
+			.get(new GenericType<String>() {});
+    }
     
 }
